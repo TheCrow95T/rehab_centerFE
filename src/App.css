@@ -1,0 +1,26 @@
+#root {
+    height: 100%;
+}
+
+.main {
+    display: grid;
+    height: 100%;
+    width: max-content;
+    grid-template-columns: 13rem 1fr;
+}
+
+.page {
+    padding: 1rem;
+}
+
+table,
+th,
+td {
+    text-align: left;
+    border: 0.1rem solid;
+}
+
+th,
+td {
+    padding: 0 1rem;
+}
