@@ -1,7 +1,10 @@
 const PatientManagement = () => {
-  return (
-    <div>PatientManagement</div>
-  )
-}
+    return (
+        <>
+            {/*create patient*/}
+            <div className="pageTitle">Patient Management</div>
+        </>
+    );
+};
 
-export default PatientManagement
+export default PatientManagement;
