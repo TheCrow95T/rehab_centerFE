@@ -40,6 +40,9 @@ const Dashboard = ({ outletList }: DashBoardProp) => {
             } else {
                 alert("Database failed, try again later");
             }
+            if (result.patienceArray.length == 0){
+                alert("No record is found!")
+            }
         } else {
             alert("'Date To' must be greater than 'Date From'");
         }

@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard";
 import PatientManagement from "./pages/PatientManagement";
 import Reports from "./pages/Reports";
 import getRehabCenterData from "./api/getRehabCenterData";
+import CreatePatient from "./pages/CreatePatient";
 
 function App() {
     const [user, setUser] = useState(getCookie("accessToken"));
@@ -44,7 +45,8 @@ function App() {
                         </Route>
                         <Route element={<ProtectedRoute redirectPath="/login" />}>
                             <Route path={"/"} element={<Dashboard outletList={outletList} />} />
-                            <Route path={"/patient"} element={<PatientManagement />} />
+                            <Route path={"/patient"} element={<PatientManagement outletList={outletList} timeslotList={timeslotList}/>} />
+                            <Route path={"/patient/create"} element={<CreatePatient />} />
                             <Route path={"/reports"} element={<Reports />} />
                             <Route path="*" element={<p>Page not found 404</p>} />
                         </Route>
