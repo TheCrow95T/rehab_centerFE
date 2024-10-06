@@ -19,7 +19,7 @@ const NavBar = ({ setUser }: NavBarProp) => {
     };
     return (
         <div className="navbar">
-            <div className="title">Inventory Management System</div>
+            <div className="title">Rehab Center</div>
             <Link to={"/"}>Dashboard</Link>
             <Link to={"/patient"}>Patient Management</Link>
             <Link to={"/reports"}>Report</Link>

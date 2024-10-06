@@ -29,6 +29,7 @@ const PatientManagement = ({
         <DetailPatient
           outletList={outletList}
           timeslotList={timeslotList}
+          detailID={detailID}
           setDetailID={setDetailID}
         />
       )}

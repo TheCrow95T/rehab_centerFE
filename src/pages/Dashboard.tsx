@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import getRegistrationByPatientByPage from "../api/getRegistrationByPatientByPage";
+import getRegistrationSummaryList from "../api/getRegistrationSummaryList";
 
 type DashBoardProp = {
     outletList: {
@@ -23,14 +23,27 @@ const Dashboard = ({ outletList }: DashBoardProp) => {
 
     useEffect(() => {
         const today = new Date();
-        setDateFrom(new Date(today).toISOString().split("T")[0]);
-        const date_to = today.setDate(today.getDate() + 1);
-        setDateTo(new Date(date_to).toISOString().split("T")[0]);
+        const todayDate = new Date(today).toISOString().split("T")[0]
+        const date_to = today.setDate(today.getDate() + 30);
+        const nextDate = new Date(date_to).toISOString().split("T")[0]
+        setDateFrom(todayDate);
+        setDateTo(nextDate);
+        const initialList = async () => {
+            const result = await getRegistrationSummaryList(
+                outletId,
+                todayDate,
+                nextDate
+            );
+            if (result) {
+                setFilteredData(result.patienceArray);
+            }
+        };
+        initialList();
     }, []);
 
     const handleFilter = async () => {
         if (dateTo >= dateFrom) {
-            const result = await getRegistrationByPatientByPage(
+            const result = await getRegistrationSummaryList(
                 outletId,
                 dateFrom,
                 dateTo,
@@ -40,8 +53,8 @@ const Dashboard = ({ outletList }: DashBoardProp) => {
             } else {
                 alert("Database failed, try again later");
             }
-            if (result.patienceArray.length == 0){
-                alert("No record is found!")
+            if (result.patienceArray.length == 0) {
+                alert("No record is found!");
             }
         } else {
             alert("'Date To' must be greater than 'Date From'");

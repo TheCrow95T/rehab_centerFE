@@ -22,7 +22,12 @@ td {
 
 th,
 td {
-    padding: 0 1rem;
+    padding: 0.15rem 1rem;
+}
+
+.row-select:hover {
+    color: white;
+    background-color: black;
 }
 
 .pageTitle {
