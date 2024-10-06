@@ -11,6 +11,8 @@
 
 .page {
     padding: 1rem;
+    margin-left: 13rem;
+    width: max-content;
 }
 
 table,

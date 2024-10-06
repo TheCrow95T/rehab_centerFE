@@ -12,7 +12,7 @@ const NavBar = ({ setUser }: NavBarProp) => {
         const confirmLogout = confirm("Confirm Logout?");
 
         if (confirmLogout) {
-            document.cookie = "accessToken=;";
+            document.cookie = "accessToken=; path=/;";
             navigate("/login");
             setUser("");
         }

@@ -1,37 +1,10 @@
 import { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import getPatientByIdentificationCard from "../api/getPatientByIdentificationCard";
-import listPatientSessionByPage from "../api/listPatientSessionByPage";
 import editPatient from "../api/editPatient";
 
-type PatientManagementProp = {
-  outletList: {
-    id: string;
-    outlet_name: string;
-  }[];
-  timeslotList: {
-    id: string;
-    start_time: string;
-    end_time: string;
-  }[];
-  detailID: string;
-  setDetailID: (Status: string) => void;
-};
-
-type sessionListType = {
-  outlet_id: string;
-  outlet_name: string;
-  treatment_date: string;
-  start_time: string;
-  end_time: string;
-  attendance: boolean;
-}[];
-
-const DetailPatient = ({
-  outletList,
-  timeslotList,
-  detailID,
-  setDetailID,
-}: PatientManagementProp) => {
+const PatientDetails = () => {
+  const { id = "" } = useParams();
   const [fullname, setFullname] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("YYYY-MM-DD");
   const [gender, setGender] = useState("M");
@@ -44,9 +17,6 @@ const DetailPatient = ({
   const [email, setEmail] = useState("");
   const [recover, setRecover] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [totalPage, setTotalPage] = useState(1);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [sessionList, setSessionList] = useState<sessionListType>([]);
 
   const backupData = useRef({
     phoneBK: "",
@@ -59,9 +29,13 @@ const DetailPatient = ({
     recover: false,
   });
 
+  const identificationNo = useRef(atob(id));
+
   useEffect(() => {
     const loadDetails = async () => {
-      const result = await getPatientByIdentificationCard(detailID);
+      const result = await getPatientByIdentificationCard(
+        identificationNo.current,
+      );
       if (result) {
         const details = result.patienceArray[0];
         setFullname(details.fullname);
@@ -92,15 +66,6 @@ const DetailPatient = ({
           recover: details.recover,
         };
       }
-
-      const sessionListResult = await listPatientSessionByPage(
-        detailID,
-        pageNumber,
-      );
-      if (sessionListResult) {
-        setSessionList(sessionListResult.patienceArray);
-        setTotalPage(sessionListResult.patienceTotalPage);
-      }
     };
     loadDetails();
   }, []);
@@ -127,7 +92,7 @@ const DetailPatient = ({
         country,
       };
       const result = await editPatient(
-        detailID,
+        identificationNo.current,
         phoneNumber,
         address,
         email,
@@ -158,9 +123,6 @@ const DetailPatient = ({
 
   return (
     <>
-      <h2>Patient details</h2>
-      <button onClick={() => setDetailID("")}>Back</button>
-      <div>{detailID}</div>
       <form>
         <div>
           <label>Full Name:</label>
@@ -305,76 +267,8 @@ const DetailPatient = ({
           </button>
         ) : null}
       </form>
-      <table>
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>Outlet Name</th>
-            <th>Treatment Date</th>
-            <th>Start time</th>
-            <th>End time</th>
-            <th>Attendance</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sessionList.map((session, index) => (
-            <tr key={session.treatment_date + detailID + index}>
-              <td>{index + 1}</td>
-              <td>{session.outlet_name}</td>
-              <td>{session.treatment_date}</td>
-              <td>{session.start_time}</td>
-              <td>{session.end_time}</td>
-              <td>{session.attendance ? "True" : "False"}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div>
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            gap: "1rem",
-          }}
-        >
-          <button
-            onClick={() =>
-              pageNumber - 1 > 0 ? setPageNumber(pageNumber - 1) : null
-            }
-          >
-            Prev Page
-          </button>
-          <label>
-            <select
-              id="groupName"
-              name="groupName"
-              value={pageNumber}
-              onChange={(e) => setPageNumber(parseInt(e.target.value))}
-              required
-            >
-              {Array.from(Array(totalPage).keys()).map((index) => (
-                <option key={index + 1} value={index + 1}>
-                  {index + 1}
-                </option>
-              ))}
-            </select>
-          </label>
-          <div>{totalPage}</div>
-          <button
-            onClick={() =>
-              pageNumber + 1 <= totalPage ? setPageNumber(pageNumber + 1) : null
-            }
-          >
-            Next Page
-          </button>
-        </div>
-      </div>
     </>
   );
 };
 
-export default DetailPatient;
-// Detail page
-//TODO: register a session
-//TODO: update attendance
+export default PatientDetails;

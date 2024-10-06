@@ -1,6 +1,8 @@
-import { useState } from "react";
-import PatientList from "../components/PatientList";
-import DetailPatient from "../components/DetailPatient";
+import { useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import PatientDetails from "../components/PatientDetails";
+import PatientSessions from "../components/PatientSessions";
+import PatientSessionRegister from "../components/PatientSessionRegister";
 
 type PatientManagementProp = {
   outletList: {
@@ -18,21 +20,23 @@ const PatientManagement = ({
   outletList,
   timeslotList,
 }: PatientManagementProp) => {
-  const [detailID, setDetailID] = useState("");
+  const { id = "" } = useParams();
+
+  const navigate = useNavigate();
+
+  const identificationNo = useRef(atob(id));
 
   return (
     <>
-      <div className="pageTitle">Patient Management</div>
-      {detailID == "" ? (
-        <PatientList setDetailID={setDetailID} />
-      ) : (
-        <DetailPatient
-          outletList={outletList}
-          timeslotList={timeslotList}
-          detailID={detailID}
-          setDetailID={setDetailID}
-        />
-      )}
+      <div className="pageTitle">Patient Details</div>
+      <button onClick={() => navigate("/patient")}>Back</button>
+      <div>
+        <span>Identification No: </span>
+        <span>{identificationNo.current}</span>
+      </div>
+      <PatientDetails />
+      <PatientSessions />
+      <PatientSessionRegister outletList={outletList} timeslotList={timeslotList}/>
     </>
   );
 };

@@ -4,8 +4,8 @@ import getCookie from "../utilities/getCookie.js";
 
 export default async function registerSession(
     identification_number: string,
-    outlet_id: number,
-    timeslot_id: number,
+    outlet_id: string,
+    timeslot_id: string,
     treatment_date: string,
 ) {
     try {
@@ -22,13 +22,13 @@ export default async function registerSession(
             // Attaching the form data
             data: {
                 identification_number,
-                outlet_id,
-                timeslot_id,
+                outlet_id: parseInt(outlet_id),
+                timeslot_id: parseInt(timeslot_id),
                 treatment_date,
             },
         });
 
-        if (result.data.message == "Patient register attendance success") {
+        if (result.data.message.length > 0) {
             return result.data;
         }
     } catch (error) {
