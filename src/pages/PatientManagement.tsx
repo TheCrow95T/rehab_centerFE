@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PatientDetails from "../components/PatientDetails";
 import PatientSessions from "../components/PatientSessions";
@@ -21,6 +21,7 @@ const PatientManagement = ({
   timeslotList,
 }: PatientManagementProp) => {
   const { id = "" } = useParams();
+  const [registerForm, setRegisterForm] = useState(false);
 
   const navigate = useNavigate();
 
@@ -29,14 +30,21 @@ const PatientManagement = ({
   return (
     <>
       <div className="pageTitle">Patient Details</div>
-      <button onClick={() => navigate("/patient")}>Back</button>
+      <button onClick={() => navigate("/patient")}>Back to previous page</button>
+      <button onClick={() => setRegisterForm(true)}>Register Session</button>
       <div>
         <span>Identification No: </span>
         <span>{identificationNo.current}</span>
       </div>
       <PatientDetails />
       <PatientSessions />
-      <PatientSessionRegister outletList={outletList} timeslotList={timeslotList}/>
+      {registerForm ? (
+        <PatientSessionRegister
+          outletList={outletList}
+          timeslotList={timeslotList}
+          setRegisterForm={setRegisterForm}
+        />
+      ) : null}
     </>
   );
 };

@@ -71,7 +71,7 @@ const PatientList = () => {
           />
         </div>
         <button type="submit">Search</button>
-        <button onClick={() => navigate("/patient/create")}>Create</button>
+        <button onClick={() => navigate("/patient/create")}>Register new patient</button>
       </form>
       <table>
         <thead>

@@ -60,6 +60,7 @@ const PatientSessions = () => {
 
   return (
     <>
+      <div className="pageTitle">Session Register List</div>
       <table>
         <thead>
           <tr>
@@ -138,6 +139,4 @@ const PatientSessions = () => {
 };
 
 export default PatientSessions;
-// Detail page
-//TODO: register a session
 
