@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import getRegistrationSummaryList from "../api/getRegistrationSummaryList";
 import "./Dashboard.css";
-import "../index.css";
-import { Button } from "@/components/ui/button";
 
 type DashBoardProp = {
   outletList: {

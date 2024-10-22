@@ -1,5 +1,6 @@
 import { SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import login from "../api/login";
 
 type NavBarProp = {
@@ -58,7 +59,7 @@ const Login = ({ setUser }: NavBarProp) => {
                         required
                     />
                 </div>
-                <button type="submit">Login</button>
+                <Button variant="outline" type="submit">Login</Button>
             </form>
         </>
     );

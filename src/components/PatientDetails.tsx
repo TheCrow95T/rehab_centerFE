@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import getPatientByIdentificationCard from "../api/getPatientByIdentificationCard";
 import editPatient from "../api/editPatient";
 
@@ -258,13 +259,13 @@ const PatientDetails = () => {
             </select>
           )}
         </div>
-        <button type="button" onClick={() => savePatientChange()}>
+        <Button variant="outline" type="button" onClick={() => savePatientChange()}>
           {isEdit ? "Save" : "Edit"}
-        </button>
+        </Button>
         {isEdit ? (
-          <button type="button" onClick={() => resetEditForm()}>
+          <Button variant="outline" type="button" onClick={() => resetEditForm()}>
             Cancel
-          </button>
+          </Button>
         ) : null}
       </form>
     </>

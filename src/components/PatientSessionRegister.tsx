@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import registerSession from "../api/registerSession";
 import "./PatientSessionRegister.css";
 
@@ -101,12 +102,12 @@ const PatientSessionRegister = ({
           })}
         </select>
         <div className="button_section">
-          <button type="button" onClick={() => savePatientChange()}>
+          <Button variant="outline" type="button" onClick={() => savePatientChange()}>
             Create
-          </button>
-          <button type="button" onClick={() => setRegisterForm(false)}>
+          </Button>
+          <Button variant="outline" type="button" onClick={() => setRegisterForm(false)}>
             Close
-          </button>
+          </Button>
         </div>
       </form>
     </div>

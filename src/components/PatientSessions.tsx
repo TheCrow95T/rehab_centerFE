@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
 import listPatientSessionByPage from "../api/listPatientSessionByPage";
 import { useParams } from "react-router-dom";
 import updatePatientAttendance from "../api/updatePatientAttendance";
@@ -34,7 +35,6 @@ const PatientSessions = () => {
     };
     changePage();
   }, [pageNumber]);
-
 
   const updateAttendance = async (id: string) => {
     const confirmAttend = confirm("Confirm patient attended?");
@@ -75,7 +75,7 @@ const PatientSessions = () => {
         <tbody>
           {sessionList.map((session, index) => (
             <tr key={session.id}>
-              <td>{(pageNumber -1)*10 + index + 1}</td>
+              <td>{(pageNumber - 1) * 10 + index + 1}</td>
               <td>{session.outlet_name}</td>
               <td>{session.treatment_date}</td>
               <td>{session.start_time}</td>
@@ -84,9 +84,12 @@ const PatientSessions = () => {
                 {session.attendance ? (
                   "Attended"
                 ) : (
-                  <button onClick={() => updateAttendance(session.id)}>
+                  <Button
+                    variant="outline"
+                    onClick={() => updateAttendance(session.id)}
+                  >
                     Not Attend
-                  </button>
+                  </Button>
                 )}
               </td>
             </tr>
@@ -102,13 +105,14 @@ const PatientSessions = () => {
             gap: "1rem",
           }}
         >
-          <button
+          <Button
+            variant="outline"
             onClick={() =>
               pageNumber - 1 > 0 ? setPageNumber(pageNumber - 1) : null
             }
           >
             Prev Page
-          </button>
+          </Button>
           <label>
             <select
               id="groupName"
@@ -125,13 +129,14 @@ const PatientSessions = () => {
             </select>
           </label>
           <div>{totalPage}</div>
-          <button
+          <Button
+            variant="outline"
             onClick={() =>
               pageNumber + 1 <= totalPage ? setPageNumber(pageNumber + 1) : null
             }
           >
             Next Page
-          </button>
+          </Button>
         </div>
       </div>
     </>
@@ -139,4 +144,3 @@ const PatientSessions = () => {
 };
 
 export default PatientSessions;
-

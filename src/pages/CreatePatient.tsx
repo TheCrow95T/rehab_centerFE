@@ -1,5 +1,6 @@
 import { SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import createPatient from "../api/createPatient";
 
 type Address = {
@@ -88,7 +89,7 @@ const CreatePatient = () => {
   return (
     <>
       <h2>Create New Patient</h2>
-      <button onClick={()=>navigate('/patient')}>Back</button>
+      <Button variant="outline" onClick={()=>navigate('/patient')}>Back</Button>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="identification">Identification No:</label>
@@ -212,7 +213,7 @@ const CreatePatient = () => {
             required
           />
         </div>
-        <button type="submit">Create</button>
+        <Button variant="outline" type="submit">Create</Button>
       </form>
     </>
   );

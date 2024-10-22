@@ -1,4 +1,5 @@
 import { useEffect, useState, SyntheticEvent } from "react";
+import { Button } from "@/components/ui/button";
 import listPatientsByPage from "../api/listPatientsByPage";
 import getPatientByIdentificationCard from "../api/getPatientByIdentificationCard";
 import { useNavigate } from "react-router-dom";
@@ -70,8 +71,8 @@ const PatientList = () => {
             required
           />
         </div>
-        <button type="submit">Search</button>
-        <button onClick={() => navigate("/patient/create")}>Register new patient</button>
+        <Button variant="outline" type="submit">Search</Button>
+        <Button variant="outline" onClick={() => navigate("/patient/create")}>Register new patient</Button>
       </form>
       <table>
         <thead>
@@ -110,13 +111,13 @@ const PatientList = () => {
             gap: "1rem",
           }}
         >
-          <button
+          <Button variant="outline"
             onClick={() =>
               pageNumber - 1 > 0 ? setPageNumber(pageNumber - 1) : null
             }
           >
             Prev Page
-          </button>
+          </Button>
           <label>
             <select
               id="groupName"
@@ -133,13 +134,13 @@ const PatientList = () => {
             </select>
           </label>
           <div>{totalPage}</div>
-          <button
+          <Button variant="outline"
             onClick={() =>
               pageNumber + 1 <= totalPage ? setPageNumber(pageNumber + 1) : null
             }
           >
             Next Page
-          </button>
+          </Button>
         </div>
       </div>
     </>

@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import PatientDetails from "../components/PatientDetails";
 import PatientSessions from "../components/PatientSessions";
 import PatientSessionRegister from "../components/PatientSessionRegister";
@@ -30,8 +31,8 @@ const PatientManagement = ({
   return (
     <>
       <div className="pageTitle">Patient Details</div>
-      <button onClick={() => navigate("/patient")}>Back to previous page</button>
-      <button onClick={() => setRegisterForm(true)}>Register Session</button>
+      <Button variant="outline" onClick={() => navigate("/patient")}>Back to previous page</Button>
+      <Button variant="outline" onClick={() => setRegisterForm(true)}>Register Session</Button>
       <div>
         <span>Identification No: </span>
         <span>{identificationNo.current}</span>
