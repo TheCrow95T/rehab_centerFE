@@ -1,0 +1,59 @@
+.dashboardTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.calendar {
+  margin: 0 auto;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 2%;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 10rem);
+  margin-top: 20px;
+}
+
+.calendar-title {
+  padding: 10px;
+  border: 1px solid #f9f9f9;
+  background-color: #ddd;
+  font-weight: 700;
+  position: relative;
+}
+
+.calendar-day {
+  height: 6rem;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  position: relative;
+}
+
+.empty-cell {
+  background-color: transparent;
+}
+
+.events {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.2rem;
+}
+
+.event {
+  padding: 5px;
+  margin-top: 5px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}

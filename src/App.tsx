@@ -45,7 +45,7 @@ function App() {
                             <Route path={"/login"} element={<Login setUser={setUser} />} />
                         </Route>
                         <Route element={<ProtectedRoute redirectPath="/login" />}>
-                            <Route path={"/"} element={<Dashboard outletList={outletList} />} />
+                            <Route path={"/"} element={<Dashboard outletList={outletList} timeslotList={timeslotList} />} />
                             <Route path={"/patient"} element={<PatientList/>} />
                             <Route path={"/patient/create"} element={<CreatePatient />} />
                             <Route path={"/patient/:id"} element={<PatientManagement outletList={outletList} timeslotList={timeslotList} />} />
