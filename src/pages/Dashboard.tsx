@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import getRegistrationSummaryList from "../api/getRegistrationSummaryList";
 import "./Dashboard.css";
 
@@ -122,27 +129,33 @@ const Dashboard = ({ outletList, timeslotList }: DashBoardProp) => {
       <div className="dashboardTitle">Dashboard</div>
       <div className="calendar">
         <header className="calendar-header">
-          <label>
-            Outlet name:{"\t"}
-            <select
-              id="groupName"
-              name="groupName"
-              value={outletId}
-              onChange={(e) => setOutletId(e.target.value)}
-              required
-            >
-              {outletList.map((outlet) => {
-                return (
-                  <option
-                    key={outlet.id + outlet.outlet_name}
-                    value={outlet.id}
-                  >
-                    {outlet.outlet_name}
-                  </option>
-                );
-              })}
-            </select>
-          </label>
+          <div>
+            <span>Outlet name:{"\t"}</span>
+            <Select onValueChange={setOutletId}>
+              <SelectTrigger className="w-[10rem]">
+                <SelectValue
+                  placeholder={
+                    outletList.length > 0
+                      ? outletList.filter((outlet) => outlet.id == outletId)[0]
+                        .outlet_name
+                      : "Loading"
+                  }
+                />
+              </SelectTrigger>
+              <SelectContent>
+                {outletList.map((outlet) => {
+                  return (
+                    <SelectItem
+                      key={outlet.id + outlet.outlet_name}
+                      value={outlet.id}
+                    >
+                      {outlet.outlet_name}
+                    </SelectItem>
+                  );
+                })}
+              </SelectContent>
+            </Select>
+          </div>
           <div style={{ fontWeight: "800", fontSize: "1.2rem" }}>
             {currentDate.toLocaleString("default", {
               month: "long",

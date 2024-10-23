@@ -12,23 +12,6 @@
     width: max-content;
 }
 
-table,
-th,
-td {
-    text-align: left;
-    border: 0.1rem solid;
-}
-
-th,
-td {
-    padding: 0.15rem 1rem;
-}
-
-.row-select:hover {
-    color: white;
-    background-color: black;
-}
-
 .pageTitle {
     font-size: 2rem;
     font-weight: 700;

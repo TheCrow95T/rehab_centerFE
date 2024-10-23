@@ -29,7 +29,7 @@ const NavBar = ({ setUser }: NavBarProp) => {
     }
   };
   return (
-    <Sidebar>
+    <Sidebar className="p-3">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Rehab Center</SidebarGroupLabel>

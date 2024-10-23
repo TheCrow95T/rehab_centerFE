@@ -3,6 +3,15 @@ import { Button } from "@/components/ui/button";
 import listPatientSessionByPage from "../api/listPatientSessionByPage";
 import { useParams } from "react-router-dom";
 import updatePatientAttendance from "../api/updatePatientAttendance";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 type sessionListType = {
   id: string;
@@ -60,42 +69,42 @@ const PatientSessions = () => {
 
   return (
     <>
-      <div className="pageTitle">Session Register List</div>
-      <table>
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>Outlet Name</th>
-            <th>Treatment Date</th>
-            <th>Start time</th>
-            <th>End time</th>
-            <th>Attendance</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table>
+        <TableCaption className="pageTitle">Session Register List</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>No.</TableHead>
+            <TableHead>Outlet Name</TableHead>
+            <TableHead>Treatment Date</TableHead>
+            <TableHead>Start time</TableHead>
+            <TableHead>End time</TableHead>
+            <TableHead>Attendance</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {sessionList.map((session, index) => (
-            <tr key={session.id}>
-              <td>{(pageNumber - 1) * 10 + index + 1}</td>
-              <td>{session.outlet_name}</td>
-              <td>{session.treatment_date}</td>
-              <td>{session.start_time}</td>
-              <td>{session.end_time}</td>
-              <td>
+            <TableRow key={session.id}>
+              <TableCell>{(pageNumber - 1) * 10 + index + 1}</TableCell>
+              <TableCell>{session.outlet_name}</TableCell>
+              <TableCell>{session.treatment_date}</TableCell>
+              <TableCell>{session.start_time}</TableCell>
+              <TableCell>{session.end_time}</TableCell>
+              <TableCell>
                 {session.attendance ? (
                   "Attended"
                 ) : (
                   <Button
-                    variant="outline"
+                    variant="destructive"
                     onClick={() => updateAttendance(session.id)}
                   >
                     Not Attend
                   </Button>
                 )}
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
       <div>
         <div
           style={{

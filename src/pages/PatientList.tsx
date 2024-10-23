@@ -3,6 +3,15 @@ import { Button } from "@/components/ui/button";
 import listPatientsByPage from "../api/listPatientsByPage";
 import getPatientByIdentificationCard from "../api/getPatientByIdentificationCard";
 import { useNavigate } from "react-router-dom";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
 
 type PatientList = {
   identification_number: string;
@@ -71,37 +80,37 @@ const PatientList = () => {
             required
           />
         </div>
-        <Button variant="outline" type="submit">Search</Button>
+        <Button variant="outline" className="mr-2" type="submit">Search</Button>
         <Button variant="outline" onClick={() => navigate("/patient/create")}>Register new patient</Button>
       </form>
-      <table>
-        <thead>
-          <tr>
-            <th>Identification Number</th>
-            <th>Full Name</th>
-            <th>Date of Birth</th>
-            <th>Gender</th>
-            <th>Recovery Status</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table className="mt-4 mb-4">
+        <TableHeader>
+          <TableRow>
+            <TableHead>Identification Number</TableHead>
+            <TableHead>Full Name</TableHead>
+            <TableHead>Date of Birth</TableHead>
+            <TableHead>Gender</TableHead>
+            <TableHead>Recovery Status</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {listPatient.map((patient) => (
-            <tr
+            <TableRow
               className="row-select"
               key={patient.identification_number}
               onClick={() =>
                 navigate("/patient/" + btoa(patient.identification_number))
               }
             >
-              <td>{patient.identification_number}</td>
-              <td>{patient.fullname}</td>
-              <td>{patient.date_of_birth}</td>
-              <td>{patient.gender == "M" ? "Male" : "Female"}</td>
-              <td>{patient.recover ? "Recover" : "in progress"}</td>
-            </tr>
+              <TableCell>{patient.identification_number}</TableCell>
+              <TableCell>{patient.fullname}</TableCell>
+              <TableCell>{patient.date_of_birth}</TableCell>
+              <TableCell>{patient.gender == "M" ? "Male" : "Female"}</TableCell>
+              <TableCell>{patient.recover ? "Recover" : "in progress"}</TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
       <div>
         <div
           style={{
