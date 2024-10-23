@@ -12,6 +12,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type sessionListType = {
   id: string;
@@ -67,6 +74,10 @@ const PatientSessions = () => {
     }
   };
 
+  const handleStringToInt = (value: string) => {
+    setPageNumber(parseInt(value));
+  };
+
   return (
     <>
       <Table>
@@ -106,14 +117,7 @@ const PatientSessions = () => {
         </TableBody>
       </Table>
       <div>
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            gap: "1rem",
-          }}
-        >
+        <div className="pageNumberingComponent">
           <Button
             variant="outline"
             onClick={() =>
@@ -122,21 +126,20 @@ const PatientSessions = () => {
           >
             Prev Page
           </Button>
-          <label>
-            <select
-              id="groupName"
-              name="groupName"
-              value={pageNumber}
-              onChange={(e) => setPageNumber(parseInt(e.target.value))}
-              required
-            >
-              {Array.from(Array(totalPage).keys()).map((index) => (
-                <option key={index + 1} value={index + 1}>
-                  {index + 1}
-                </option>
-              ))}
-            </select>
-          </label>
+          <div className="w-fit">
+            <Select onValueChange={handleStringToInt}>
+              <SelectTrigger>
+                <SelectValue placeholder={pageNumber} />
+              </SelectTrigger>
+              <SelectContent>
+                {Array.from(Array(totalPage).keys()).map((index) => (
+                  <SelectItem key={index + 1} value={(index + 1).toString()}>
+                    {index + 1}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
           <div>{totalPage}</div>
           <Button
             variant="outline"

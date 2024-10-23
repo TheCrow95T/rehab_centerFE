@@ -45,8 +45,8 @@ const CreatePatient = () => {
       alert("All fields are required.");
       return;
     }
-    
-    const cleanPhoneNumber = phoneNumber.replace(/\D/g, '');
+
+    const cleanPhoneNumber = phoneNumber.replace(/\D/g, "");
 
     const address: Address = {
       street,
@@ -89,8 +89,7 @@ const CreatePatient = () => {
   return (
     <>
       <h2>Create New Patient</h2>
-      <Button variant="outline" onClick={()=>navigate('/patient')}>Back</Button>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="patientData">
         <div>
           <label htmlFor="identification">Identification No:</label>
           <input
@@ -213,7 +212,14 @@ const CreatePatient = () => {
             required
           />
         </div>
-        <Button variant="outline" type="submit">Create</Button>
+        <div>
+          <Button variant="outline" className="mr-4" type="submit">
+            Create
+          </Button>
+          <Button variant="outline" onClick={() => navigate("/patient")}>
+            Back
+          </Button>
+        </div>
       </form>
     </>
   );

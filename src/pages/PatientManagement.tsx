@@ -31,7 +31,7 @@ const PatientManagement = ({
   return (
     <>
       <div className="pageTitle">Patient Details</div>
-      <Button variant="outline" onClick={() => navigate("/patient")}>Back to previous page</Button>
+      <Button variant="outline" className="mr-4 mb-3" onClick={() => navigate("/patient")}>Back to previous page</Button>
       <Button variant="outline" onClick={() => setRegisterForm(true)}>Register Session</Button>
       <div>
         <span>Identification No: </span>

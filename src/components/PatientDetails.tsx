@@ -124,7 +124,7 @@ const PatientDetails = () => {
 
   return (
     <>
-      <form>
+      <form className="patientData">
         <div>
           <label>Full Name:</label>
           <span>{fullname}</span>
@@ -259,6 +259,7 @@ const PatientDetails = () => {
             </select>
           )}
         </div>
+        <div>
         <Button variant="outline" type="button" onClick={() => savePatientChange()}>
           {isEdit ? "Save" : "Edit"}
         </Button>
@@ -267,6 +268,7 @@ const PatientDetails = () => {
             Cancel
           </Button>
         ) : null}
+        </div>
       </form>
     </>
   );

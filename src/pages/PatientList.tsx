@@ -1,5 +1,7 @@
 import { useEffect, useState, SyntheticEvent } from "react";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import listPatientsByPage from "../api/listPatientsByPage";
 import getPatientByIdentificationCard from "../api/getPatientByIdentificationCard";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +12,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-
+} from "@/components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type PatientList = {
   identification_number: string;
@@ -65,13 +73,18 @@ const PatientList = () => {
     }
   };
 
+  const handleStringToInt = (value: string) => {
+    setPageNumber(parseInt(value));
+  };
+
   return (
     <>
       <div className="pageTitle">Patient List</div>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="searchID">Identification Number:</label>
-          <input
+        <div className="mb-4">
+          <Label htmlFor="searchID">Identification Number:</Label>
+          <Input
+            className="mt-2"
             type="text"
             id="searchID"
             value={searchID}
@@ -80,8 +93,12 @@ const PatientList = () => {
             required
           />
         </div>
-        <Button variant="outline" className="mr-2" type="submit">Search</Button>
-        <Button variant="outline" onClick={() => navigate("/patient/create")}>Register new patient</Button>
+        <Button variant="outline" className="mr-2" type="submit">
+          Search
+        </Button>
+        <Button variant="outline" onClick={() => navigate("/patient/create")}>
+          Register new patient
+        </Button>
       </form>
       <Table className="mt-4 mb-4">
         <TableHeader>
@@ -106,21 +123,17 @@ const PatientList = () => {
               <TableCell>{patient.fullname}</TableCell>
               <TableCell>{patient.date_of_birth}</TableCell>
               <TableCell>{patient.gender == "M" ? "Male" : "Female"}</TableCell>
-              <TableCell>{patient.recover ? "Recover" : "in progress"}</TableCell>
+              <TableCell>
+                {patient.recover ? "Recover" : "in progress"}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
       <div>
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            gap: "1rem",
-          }}
-        >
-          <Button variant="outline"
+        <div className="pageNumberingComponent">
+          <Button
+            variant="outline"
             onClick={() =>
               pageNumber - 1 > 0 ? setPageNumber(pageNumber - 1) : null
             }
@@ -128,22 +141,22 @@ const PatientList = () => {
             Prev Page
           </Button>
           <label>
-            <select
-              id="groupName"
-              name="groupName"
-              value={pageNumber}
-              onChange={(e) => setPageNumber(parseInt(e.target.value))}
-              required
-            >
-              {Array.from(Array(totalPage).keys()).map((index) => (
-                <option key={index + 1} value={index + 1}>
-                  {index + 1}
-                </option>
-              ))}
-            </select>
+            <Select onValueChange={handleStringToInt}>
+              <SelectTrigger>
+                <SelectValue placeholder={pageNumber} />
+              </SelectTrigger>
+              <SelectContent>
+                {Array.from(Array(totalPage).keys()).map((index) => (
+                  <SelectItem key={index + 1} value={(index + 1).toString()}>
+                    {index + 1}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </label>
           <div>{totalPage}</div>
-          <Button variant="outline"
+          <Button
+            variant="outline"
             onClick={() =>
               pageNumber + 1 <= totalPage ? setPageNumber(pageNumber + 1) : null
             }
