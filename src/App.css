@@ -2,16 +2,13 @@
     height: 100%;
 }
 
-.main {
-    display: grid;
-    height: 100%;
-    width: max-content;
-    grid-template-columns: 13rem 1fr;
+.sidebarTrigger {
+  margin-top: 0.6rem;
+  margin-left: 1rem;
 }
 
 .page {
-    padding: 1rem;
-    margin-left: 13rem;
+    padding: 0.2rem 1rem;
     width: max-content;
 }
 
