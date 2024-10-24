@@ -102,10 +102,17 @@ const PatientSessions = () => {
               <TableCell>{session.end_time}</TableCell>
               <TableCell>
                 {session.attendance ? (
-                  "Attended"
+                  <Button
+                    variant="ghost"
+                    className="w-30"
+                    disabled
+                  >
+                    Attended
+                  </Button>
                 ) : (
                   <Button
                     variant="destructive"
+                    className="w-30"
                     onClick={() => updateAttendance(session.id)}
                   >
                     Not Attend

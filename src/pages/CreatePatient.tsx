@@ -2,6 +2,15 @@ import { SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import createPatient from "../api/createPatient";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 type Address = {
   street: string;
@@ -88,11 +97,11 @@ const CreatePatient = () => {
 
   return (
     <>
-      <h2>Create New Patient</h2>
+      <div className="pageTitle">Create New Patient</div>
       <form onSubmit={handleSubmit} className="patientData">
         <div>
-          <label htmlFor="identification">Identification No:</label>
-          <input
+          <Label htmlFor="identification">Identification No:</Label>
+          <Input
             type="text"
             id="identification"
             value={identificationNumber}
@@ -102,8 +111,8 @@ const CreatePatient = () => {
           />
         </div>
         <div>
-          <label htmlFor="fullname">Full Name:</label>
-          <input
+          <Label htmlFor="fullname">Full Name:</Label>
+          <Input
             type="text"
             id="fullname"
             value={fullname}
@@ -112,27 +121,24 @@ const CreatePatient = () => {
           />
         </div>
         <div>
-          <label>
-            Gender:
-            <select
-              id="gender"
-              name="gender"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-              required
-            >
-              <option key="Male" value={"M"}>
+          <Label>Gender:</Label>
+          <Select onValueChange={setGender}>
+            <SelectTrigger className="w-[10rem]">
+              <SelectValue placeholder={gender == "M" ? "Male" : "Female"} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem key="Male" value={"M"}>
                 Male
-              </option>
-              <option key="Female" value={"F"}>
+              </SelectItem>
+              <SelectItem key="Female" value={"F"}>
                 Female
-              </option>
-            </select>
-          </label>
+              </SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         <div>
-          <label htmlFor="phoneno">Phone Number:</label>
-          <input
+          <Label htmlFor="phoneno">Phone Number:</Label>
+          <Input
             type="text"
             id="phoneno"
             value={phoneNumber}
@@ -142,19 +148,17 @@ const CreatePatient = () => {
           />
         </div>
         <div>
-          <label>
-            Date From:
-            <input
-              type="date"
-              value={dateOfBirth}
-              onChange={(e) => setDateOfBirth(e.target.value)}
-              required
-            />
-          </label>
+          <Label>Date From:</Label>
+          <Input
+            type="date"
+            value={dateOfBirth}
+            onChange={(e) => setDateOfBirth(e.target.value)}
+            required
+          />
         </div>
         <div>
-          <label htmlFor="street">Street:</label>
-          <input
+          <Label htmlFor="street">Street:</Label>
+          <Input
             type="text"
             id="street"
             value={street}
@@ -163,8 +167,8 @@ const CreatePatient = () => {
           />
         </div>
         <div>
-          <label htmlFor="city">City:</label>
-          <input
+          <Label htmlFor="city">City:</Label>
+          <Input
             type="text"
             id="city"
             value={city}
@@ -173,8 +177,8 @@ const CreatePatient = () => {
           />
         </div>
         <div>
-          <label htmlFor="state">State:</label>
-          <input
+          <Label htmlFor="state">State:</Label>
+          <Input
             type="text"
             id="state"
             value={state_a}
@@ -183,8 +187,8 @@ const CreatePatient = () => {
           />
         </div>
         <div>
-          <label htmlFor="postcode">Postcode:</label>
-          <input
+          <Label htmlFor="postcode">Postcode:</Label>
+          <Input
             type="text"
             id="postcode"
             value={postcode}
@@ -193,8 +197,8 @@ const CreatePatient = () => {
           />
         </div>
         <div>
-          <label htmlFor="country">Country:</label>
-          <input
+          <Label htmlFor="country">Country:</Label>
+          <Input
             type="text"
             id="country"
             value={country}
@@ -203,8 +207,8 @@ const CreatePatient = () => {
           />
         </div>
         <div>
-          <label htmlFor="email">Email Address:</label>
-          <input
+          <Label htmlFor="email">Email Address:</Label>
+          <Input
             type="email"
             id="email"
             value={email}

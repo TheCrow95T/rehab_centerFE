@@ -1,6 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import getPatientByIdentificationCard from "../api/getPatientByIdentificationCard";
 import editPatient from "../api/editPatient";
 
@@ -122,27 +131,35 @@ const PatientDetails = () => {
     }
   };
 
+  const handleRecoveryStringToBoolean = (value: string) => {
+    if (value == 'Recover') {
+      setRecover(true);
+    } else {
+      setRecover(false);
+    }
+  };
+
   return (
     <>
       <form className="patientData">
         <div>
-          <label>Full Name:</label>
+          <Label>Full Name:</Label>
           <span>{fullname}</span>
         </div>
         <div>
-          <label>Date of Birth:</label>
+          <Label>Date of Birth:</Label>
           <span>{dateOfBirth}</span>
         </div>
         <div>
-          <label>Gender:</label>
+          <Label>Gender:</Label>
           <span>{gender == "M" ? "Male" : "Female"}</span>
         </div>
         <div>
-          <label>Phone Number:</label>
+          <Label>Phone Number:</Label>
           {!isEdit ? (
             <span>{phoneNumber}</span>
           ) : (
-            <input
+            <Input
               type="tel"
               name="phoneNumber"
               value={phoneNumber}
@@ -152,11 +169,11 @@ const PatientDetails = () => {
           )}
         </div>
         <div>
-          <label>Street:</label>
+          <Label>Street:</Label>
           {!isEdit ? (
             <span>{street}</span>
           ) : (
-            <input
+            <Input
               type="text"
               name="street"
               value={street}
@@ -167,11 +184,11 @@ const PatientDetails = () => {
           )}
         </div>
         <div>
-          <label>City:</label>
+          <Label>City:</Label>
           {!isEdit ? (
             <span>{city}</span>
           ) : (
-            <input
+            <Input
               type="text"
               name="city"
               value={city}
@@ -182,11 +199,11 @@ const PatientDetails = () => {
           )}
         </div>
         <div>
-          <label>State:</label>
+          <Label>State:</Label>
           {!isEdit ? (
             <span>{state_a}</span>
           ) : (
-            <input
+            <Input
               type="text"
               name="state"
               value={state_a}
@@ -197,11 +214,11 @@ const PatientDetails = () => {
           )}
         </div>
         <div>
-          <label>Postcode:</label>
+          <Label>Postcode:</Label>
           {!isEdit ? (
             <span>{postcode}</span>
           ) : (
-            <input
+            <Input
               type="text"
               name="postcode"
               value={postcode}
@@ -212,11 +229,11 @@ const PatientDetails = () => {
           )}
         </div>
         <div>
-          <label>Country:</label>
+          <Label>Country:</Label>
           {!isEdit ? (
             <span>{country}</span>
           ) : (
-            <input
+            <Input
               type="text"
               name="country"
               value={country}
@@ -227,11 +244,11 @@ const PatientDetails = () => {
           )}
         </div>
         <div>
-          <label>Email:</label>
+          <Label>Email:</Label>
           {!isEdit ? (
             <span>{email}</span>
           ) : (
-            <input
+            <Input
               type="email"
               name="email"
               value={email}
@@ -242,32 +259,40 @@ const PatientDetails = () => {
           )}
         </div>
         <div>
-          <label>Recovery Status:</label>
+          <Label>Recovery Status:</Label>
           {!isEdit ? (
             <span>{recover ? "Recover" : "In progress"}</span>
           ) : (
-            <select
-              id="recovery"
-              name="recovery"
-              value={recover ? "Recover" : "In progress"}
-              onChange={(e) => setRecover(e.target.value === "Recover")}
-              disabled={!isEdit}
-              required
-            >
-              <option value={"Recover"}>Recover</option>
-              <option value={"In progress"}>In progress</option>
-            </select>
+            <Select onValueChange={handleRecoveryStringToBoolean}>
+              <SelectTrigger className="w-[10rem]">
+                <SelectValue
+                  placeholder={recover ? "Recover" : "In progress"}
+                />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={"Recover"}>Recover</SelectItem>
+                <SelectItem value={"In progress"}>In progress</SelectItem>
+              </SelectContent>
+            </Select>
           )}
         </div>
         <div>
-        <Button variant="outline" type="button" onClick={() => savePatientChange()}>
-          {isEdit ? "Save" : "Edit"}
-        </Button>
-        {isEdit ? (
-          <Button variant="outline" type="button" onClick={() => resetEditForm()}>
-            Cancel
+          <Button
+            variant="outline"
+            type="button"
+            onClick={() => savePatientChange()}
+          >
+            {isEdit ? "Save" : "Edit"}
           </Button>
-        ) : null}
+          {isEdit ? (
+            <Button
+              variant="outline"
+              type="button"
+              onClick={() => resetEditForm()}
+            >
+              Cancel
+            </Button>
+          ) : null}
         </div>
       </form>
     </>

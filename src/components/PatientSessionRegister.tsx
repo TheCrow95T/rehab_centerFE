@@ -1,6 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import registerSession from "../api/registerSession";
 import "./PatientSessionRegister.css";
 
@@ -59,53 +68,58 @@ const PatientSessionRegister = ({
     <div className="popUpForm">
       <div className="pageTitle">Register Session</div>
       <form className="popUpFormContent">
-        <label>Outlet Name:</label>
-        <select
-          id="groupName"
-          name="groupName"
-          value={outletId}
-          onChange={(e) => setOutletId(e.target.value)}
-          required
-        >
-          {outletList.map((outlet) => {
-            return (
-              <option key={outlet.id + outlet.outlet_name} value={outlet.id}>
+        <Label>Outlet Name:</Label>
+        <Select onValueChange={setOutletId}>
+          <SelectTrigger>
+            <SelectValue placeholder={"Select a rehab center"} />
+          </SelectTrigger>
+          <SelectContent>
+            {outletList.map((outlet) => (
+              <SelectItem
+                key={outlet.id + outlet.outlet_name}
+                value={outlet.id}
+              >
                 {outlet.outlet_name}
-              </option>
-            );
-          })}
-        </select>
-        <label>Treatment Date:</label>
-        <input
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Label>Treatment Date:</Label>
+        <Input
           type="date"
           value={treatmentDate}
           onChange={(e) => setTreatmentDate(e.target.value)}
           required
         />
-        <label>Time Slot:</label>
-        <select
-          id="groupName"
-          name="groupName"
-          value={timeslotId}
-          onChange={(e) => setTimeSlotId(e.target.value)}
-          required
-        >
-          {timeslotList.map((timeslot) => {
-            return (
-              <option
+        <Label>Time Slot:</Label>
+        <Select onValueChange={setTimeSlotId}>
+          <SelectTrigger>
+            <SelectValue placeholder={"Select a time slot"} />
+          </SelectTrigger>
+          <SelectContent>
+            {timeslotList.map((timeslot) => (
+              <SelectItem
                 key={timeslot.id + timeslot.start_time}
                 value={timeslot.id}
               >
                 {timeslot.start_time + " - " + timeslot.end_time}
-              </option>
-            );
-          })}
-        </select>
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
         <div className="button_section">
-          <Button variant="outline" type="button" onClick={() => savePatientChange()}>
+          <Button
+            variant="outline"
+            type="button"
+            onClick={() => savePatientChange()}
+          >
             Create
           </Button>
-          <Button variant="outline" type="button" onClick={() => setRegisterForm(false)}>
+          <Button
+            variant="outline"
+            type="button"
+            onClick={() => setRegisterForm(false)}
+          >
             Close
           </Button>
         </div>

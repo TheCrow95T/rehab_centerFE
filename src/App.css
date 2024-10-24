@@ -28,6 +28,12 @@
   min-width: 60rem;
 }
 
+.patientData>div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
 .pageNumberingComponent {
   width: 100%;
   display: flex;
